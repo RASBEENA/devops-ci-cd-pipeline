@@ -1,7 +1,19 @@
-FROM node:16-alpine
+FROM node:18-alpine
+
 WORKDIR /usr/src/app
-COPY package*.json ./
+
+# Copy package.json and package-lock.json from app/
+COPY app/package*.json ./
+
+# Install dependencies
 RUN npm install
-COPY . .
+
+# Copy the rest of the application code
+COPY app/ .
+
+# Expose port
 EXPOSE 3000
-CMD ["node", "server.js"]
+
+# Start the app
+CMD ["npm", "start"]
+
